@@ -13,3 +13,8 @@
 - setup docker-compose.yml
 - launch docker desktop
 - run docker compose up
+
+## NextAuth
+
+- npm install next-auth
+- npm install @auth/drizzle-adapter // for NextAuth
