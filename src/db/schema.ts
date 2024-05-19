@@ -68,6 +68,7 @@ export const verificationTokens = pgTable(
   })
 )
 
+// allow user upload a dev session about the room user wants to create
 export const room = pgTable('room', {
   id: uuid('id')
     .default(sql`gen_random_uuid()`)
@@ -82,4 +83,5 @@ export const room = pgTable('room', {
   githubRepo: text('githubRepo'),
 })
 
+// Create a Room type which is inferred from room schema in drizzle
 export type Room = typeof room.$inferSelect
