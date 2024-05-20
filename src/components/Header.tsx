@@ -68,7 +68,7 @@ export default function Header() {
       <div className='flex justify-between items-center'>
         <Link
           href='/'
-          className='flex items-center gap-2 text-2xl font-bold text-pink-600 hover:underline'
+          className='flex items-center gap-2 text-2xl font-bold text-pink-600 transform motion-safe:hover:scale-105 transition-all'
         >
           <Image src={appIcon} alt='app icon' width={'70'} height={'70'} />
           <span>Dev Finder</span>

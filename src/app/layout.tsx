@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 import Header from '../components/Header'
 import './globals.css'
 import { Providers } from './provider'
@@ -21,6 +22,8 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
+          {/* implement loading effect in the navbar */}
+          <NextTopLoader height={3} showSpinner={false} />
           <Header />
           {children}
         </Providers>

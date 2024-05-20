@@ -1,6 +1,7 @@
 'use server'
 
 import { getSession } from '@/lib/auth'
+import { revalidatePath } from 'next/cache'
 import React from 'react'
 import { db } from '../../db'
 import { Room, room } from '../../db/schema'
@@ -17,4 +18,7 @@ export async function createRoomAction(roomData: Omit<Room, 'userId' | 'id'>) {
   }
   // room is the table created in postgres
   await db.insert(room).values({ ...roomData, userId: session?.user.id })
+
+  // Tell next.js clear the cache next time someone hit this page, and get a fresh copy of everything
+  revalidatePath('/')
 }

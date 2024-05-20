@@ -13,6 +13,7 @@
 - setup docker-compose.yml
 - launch docker desktop
 - run docker compose up
+- npm install nextjs-toploader
 
 ## NextAuth
 
