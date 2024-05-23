@@ -62,7 +62,6 @@ function AccountDropdown() {
 export default function Header() {
   // We can use session to check someone is logged in or not
   const session = useSession()
-  console.log(session.data?.user.image)
   return (
     <header className='container mx-auto bg-zinc-200 dark:bg-gray-800 py-2'>
       <div className='flex justify-between items-center'>

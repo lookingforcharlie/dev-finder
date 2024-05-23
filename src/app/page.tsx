@@ -10,18 +10,22 @@ import {
 import { db } from '@/db/index'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
+import TagsList, { splitTags } from '../components/Tag-list'
 import { Button } from '../components/ui/button'
 import { getRooms } from '../data-access/rooms'
 import { Room } from '../db/schema'
 
 async function RoomCard({ room }: { room: Room }) {
+  const languages = splitTags(room.tags)
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className='flex flex-col gap-4'>
+        <TagsList languages={languages} />
         {room.githubRepo && (
           <Link
             href={room.githubRepo}
@@ -31,11 +35,10 @@ async function RoomCard({ room }: { room: Room }) {
             <Github /> Github Project
           </Link>
         )}
-        <Badge variant='secondary'>{room.tags}</Badge>
       </CardContent>
       <CardFooter>
         <Button asChild>
-          <Link href={`/room/${room.id}`}>Join Room</Link>
+          <Link href={`/rooms/${room.id}`}>Join Room</Link>
         </Button>
       </CardFooter>
     </Card>

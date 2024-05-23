@@ -107,11 +107,11 @@ export default function CreateRoomForm() {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder='TypeScript, Nextjs, Tailwind' />
               </FormControl>
               <FormDescription>
-                Please give tags of the primary language you are using for this
-                project.
+                List your programming languages, frameworks, libraries so people
+                can find your content
               </FormDescription>
               <FormMessage />
             </FormItem>
