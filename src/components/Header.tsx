@@ -36,7 +36,11 @@ function AccountDropdown() {
           </Button>
         </DropdownMenuTrigger>
       ) : (
-        <Button variant={'destructive'} onClick={() => signIn('google')}>
+        <Button
+          variant={'destructive'}
+          onClick={() => signIn('google')}
+          className='mr-4'
+        >
           <LogInIcon className='mr-2' /> Sign In
         </Button>
       )}
@@ -45,7 +49,13 @@ function AccountDropdown() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {isLoggedIn ? (
-          <DropdownMenuItem onClick={() => signOut()}>
+          <DropdownMenuItem
+            onClick={() =>
+              signOut({
+                callbackUrl: '/',
+              })
+            }
+          >
             <LogOutIcon className='mr-2' /> Sign Out
           </DropdownMenuItem>
         ) : (
@@ -63,7 +73,7 @@ export default function Header() {
   // We can use session to check someone is logged in or not
   const session = useSession()
   return (
-    <header className='container mx-auto bg-zinc-200 dark:bg-gray-800 py-2'>
+    <header className='mx-auto bg-zinc-200 dark:bg-gray-800 py-2 lg:px-12'>
       <div className='flex justify-between items-center'>
         <Link
           href='/'

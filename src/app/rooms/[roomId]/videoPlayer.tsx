@@ -3,6 +3,7 @@
 import {
   Call,
   CallControls,
+  CallParticipantsList,
   SpeakerLayout,
   StreamCall,
   StreamTheme,
@@ -12,6 +13,7 @@ import {
 import '@stream-io/video-react-sdk/dist/css/styles.css'
 import { generateKey } from 'crypto'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Room } from '../../../db/schema'
 import { generateTokenAction } from './actions'
@@ -22,6 +24,7 @@ export function DevFinderVideo({ room }: { room: Room }) {
   const session = useSession()
   const [client, setClient] = useState<StreamVideoClient | null>(null)
   const [call, setCall] = useState<Call | null>(null)
+  const router = useRouter()
 
   // we using set hook and useEffect because it's Next.js
   useEffect(() => {
@@ -34,6 +37,8 @@ export function DevFinderVideo({ room }: { room: Room }) {
       apiKey,
       user: {
         id: userId,
+        name: session.data.user.name ?? 'unknown',
+        image: session.data.user.image ?? '',
       },
       tokenProvider: () => generateTokenAction(), // Call a server action
     })
@@ -43,7 +48,7 @@ export function DevFinderVideo({ room }: { room: Room }) {
     setCall(call)
 
     return () => {
-      call.leave()
+      // call.leave()
       client.disconnectUser()
     }
   }, [session, room])
@@ -54,7 +59,12 @@ export function DevFinderVideo({ room }: { room: Room }) {
         <StreamTheme>
           <StreamCall call={call}>
             <SpeakerLayout />
-            <CallControls />
+            <CallControls
+              onLeave={() => {
+                router.push('/') // After click disconnect, back to homepage
+              }}
+            />
+            <CallParticipantsList onClose={() => undefined} />
           </StreamCall>
         </StreamTheme>
       </StreamVideo>

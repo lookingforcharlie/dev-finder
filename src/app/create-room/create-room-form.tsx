@@ -21,10 +21,10 @@ import { createRoomAction } from './action'
 
 // Define a form schema
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
+  name: z.string().min(2).max(250),
   description: z.string().min(2).max(250),
-  githubRepo: z.string().min(2).max(50),
-  tags: z.string().min(1).max(20),
+  githubRepo: z.string().min(2).max(250),
+  tags: z.string().min(1).max(250),
 })
 
 export default function CreateRoomForm() {

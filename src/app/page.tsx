@@ -10,6 +10,7 @@ import {
 import { db } from '@/db/index'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
+import SearchBar from '../components/SearchBar'
 import TagsList, { splitTags } from '../components/Tag-list'
 import { Button } from '../components/ui/button'
 import { getRooms } from '../data-access/rooms'
@@ -45,18 +46,24 @@ async function RoomCard({ room }: { room: Room }) {
   )
 }
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { search: string }
+}) {
   // abstract way getRooms function, can make the page dynamic to solve the caching issue
-  const rooms = await getRooms()
+  const rooms = await getRooms(searchParams.search)
 
   return (
-    <main className=' min-h-screen p-16'>
-      <div className='flex justify-between items-center mb-8'>
+    <main className=' min-h-screen p-16 flex flex-col gap-y-8'>
+      <div className='flex justify-between items-center'>
         <h1 className='text-4xl'>Find Dev Rooms</h1>
         <Button asChild>
           <Link href='/create-room'>Create Room</Link>
         </Button>
       </div>
+
+      <SearchBar />
 
       {/* best way to render cards is using grid */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
