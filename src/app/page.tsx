@@ -11,10 +11,11 @@ import { db } from '@/db/index'
 import { Github } from 'lucide-react'
 import Link from 'next/link'
 import SearchBar from '../components/SearchBar'
-import TagsList, { splitTags } from '../components/Tag-list'
+import TagsList from '../components/Tag-list'
 import { Button } from '../components/ui/button'
 import { getRooms } from '../data-access/rooms'
 import { Room } from '../db/schema'
+import { splitTags } from '../lib/utils'
 
 async function RoomCard({ room }: { room: Room }) {
   const languages = splitTags(room.tags)

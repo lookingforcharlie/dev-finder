@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CloudCog, SearchIcon } from 'lucide-react'
 // Don't import useRouter from 'next/router'
 import { useRouter, useSearchParams } from 'next/navigation'
-import react from 'react'
+import react, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -36,6 +36,12 @@ export default function SearchBar() {
       search: query.get('search') ?? '', // map the query string here to fix page refresh bug
     },
   })
+
+  const searchKeyword = query.get('search')
+
+  useEffect(() => {
+    form.setValue('search', searchKeyword ?? '')
+  }, [searchKeyword, form])
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -65,6 +71,7 @@ export default function SearchBar() {
                   {...field}
                   placeholder='Filter rooms by keywords, such TypeScript, React, Python etc'
                   className='w-[22rem] md:w-[30rem] lg:w-[45rem]'
+                  // value={query.get('search')}
                 />
               </FormControl>
               <FormMessage />

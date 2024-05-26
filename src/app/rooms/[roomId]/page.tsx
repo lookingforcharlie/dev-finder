@@ -1,9 +1,10 @@
 import { Github } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import TagsList, { splitTags } from '../../../components/Tag-list'
+import TagsList from '../../../components/Tag-list'
 import { Badge } from '../../../components/ui/badge'
 import { getRoom } from '../../../data-access/rooms'
+import { splitTags } from '../../../lib/utils'
 import { DevFinderVideo } from './videoPlayer'
 
 export default async function RoomPage(props: {
