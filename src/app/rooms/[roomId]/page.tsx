@@ -1,4 +1,5 @@
 import { Github } from 'lucide-react'
+import { unstable_noStore } from 'next/cache'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import TagsList from '../../../components/Tag-list'
@@ -13,7 +14,7 @@ export default async function RoomPage(props: {
   }
 }) {
   const roomId = props.params.roomId
-
+  unstable_noStore()
   const room = await getRoom(roomId)
 
   if (!room) {

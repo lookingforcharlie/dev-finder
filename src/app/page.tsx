@@ -1,77 +1,67 @@
-import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { db } from '@/db/index'
-import { Github } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
-import SearchBar from '../components/SearchBar'
-import TagsList from '../components/Tag-list'
-import { Button } from '../components/ui/button'
-import { getRooms } from '../data-access/rooms'
-import { Room } from '../db/schema'
-import { splitTags } from '../lib/utils'
 
-async function RoomCard({ room }: { room: Room }) {
-  const languages = splitTags(room.tags)
-
+export default function LandingPage() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{room.name}</CardTitle>
-        <CardDescription>{room.description}</CardDescription>
-      </CardHeader>
-      <CardContent className='flex flex-col gap-4'>
-        <TagsList languages={languages} />
-        {room.githubRepo && (
-          <Link
-            href={room.githubRepo}
-            className='flex items-center gap-x-2'
-            target='_blank'
-          >
-            <Github /> Github Project
-          </Link>
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button asChild>
-          <Link href={`/rooms/${room.id}`}>Join Room</Link>
-        </Button>
-      </CardFooter>
-    </Card>
-  )
-}
-
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { search: string }
-}) {
-  // abstract way getRooms function, can make the page dynamic to solve the caching issue
-  const rooms = await getRooms(searchParams.search)
-
-  return (
-    <main className=' min-h-screen p-16 flex flex-col gap-y-8'>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-4xl'>Find Dev Rooms</h1>
-        <Button asChild>
-          <Link href='/create-room'>Create Room</Link>
-        </Button>
+    <div className=''>
+      <div className='relative isolate px-6 pt-14 lg:px-8'>
+        <div
+          className='absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80'
+          aria-hidden='true'
+        >
+          <div
+            className='relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]'
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
+        </div>
+        <div className='mx-auto max-w-2xl py-12'>
+          <div className='text-center'>
+            <Image
+              className='inline-block'
+              src='/dev_finder_icon.png'
+              width='200'
+              height='200'
+              alt='dev finder logo'
+            />
+            <h1 className='text-4xl font-bold tracking-tight text-gray-900 dark:text-zinc-300 sm:text-6xl'>
+              Find other awesome devs to pair with online
+            </h1>
+            <p className='mt-6 text-lg leading-8 text-gray-600 dark:text-zinc-400'>
+              This platform is for sharing hyou screen working with other
+              developers online
+            </p>
+            <div className='mt-10 flex items-center justify-center gap-x-6'>
+              <Link
+                href='/browse'
+                className='rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              >
+                Get started
+              </Link>
+              <a
+                href='#'
+                className='text-sm font-semibold leading-6 text-gray-900'
+              >
+                Learn more <span aria-hidden='true'>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          className='absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]'
+          aria-hidden='true'
+        >
+          <div
+            className='relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]'
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
+        </div>
       </div>
-
-      <SearchBar />
-
-      {/* best way to render cards is using grid */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        {rooms.map((room) => {
-          return <RoomCard key={room.id} room={room} />
-        })}
-      </div>
-    </main>
+    </div>
   )
 }

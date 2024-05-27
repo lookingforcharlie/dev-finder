@@ -19,3 +19,12 @@
 
 - npm install next-auth
 - npm install @auth/drizzle-adapter // for NextAuth
+
+## Middleware
+
+- When log out, user tries to access /your-rooms, page breaks
+- Now it's time for middleware kicks in to catch the broken page
+
+## Update
+
+[] Edit button for user's room

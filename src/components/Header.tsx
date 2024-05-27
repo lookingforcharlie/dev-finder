@@ -72,8 +72,9 @@ function AccountDropdown() {
 export default function Header() {
   // We can use session to check someone is logged in or not
   const session = useSession()
+  const isLoggedIn = !!session.data
   return (
-    <header className='mx-auto bg-zinc-200 dark:bg-gray-800 py-2 lg:px-12'>
+    <header className='mx-auto bg-zinc-200 dark:bg-gray-800 py-2 lg:px-12 z-10 relative'>
       <div className='flex justify-between items-center'>
         <Link
           href='/'
@@ -83,9 +84,20 @@ export default function Header() {
           <span>Dev Finder</span>
         </Link>
 
-        <div className='flex items-center gap-x-2'>
-          <AccountDropdown />
-          <ModeToggle />
+        <div className='flex items-center'>
+          <nav>
+            {isLoggedIn && (
+              <div className='flex gap-x-4'>
+                <Link href='/browse'>Browse</Link>
+                <Link href='/your-rooms'>Your Rooms</Link>
+              </div>
+            )}
+          </nav>
+
+          <div className='flex items-center gap-x-2'>
+            <AccountDropdown />
+            <ModeToggle />
+          </div>
         </div>
       </div>
     </header>

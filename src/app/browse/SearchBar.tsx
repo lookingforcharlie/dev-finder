@@ -80,7 +80,7 @@ export default function SearchBar() {
         />
 
         <Button type='submit'>
-          <SearchIcon className='mr-2' size={'sm'} />
+          <SearchIcon className='mr-2 w-4 h-4' />
           Search
         </Button>
 
