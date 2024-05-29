@@ -28,3 +28,4 @@
 ## Update
 
 [] Edit button for user's room
+[] After you submit you edit room, the room will go the last in the browser page, I want it to stay in the same place

@@ -13,11 +13,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 // Don't import useRouter from 'next/router'
-import { useRouter } from 'next/navigation'
-import react from 'react'
+import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { createRoomAction } from './action'
+import { Room } from '../../../db/schema'
+import { editRoomAction } from './action'
 
 // Define a form schema
 const formSchema = z.object({
@@ -27,18 +27,19 @@ const formSchema = z.object({
   tags: z.string().min(1).max(250),
 })
 
-export default function CreateRoomForm() {
+export default function EditRoomForm({ room }: { room: Room }) {
   const router = useRouter()
+  const params = useParams()
+
   // 1. Define your form.
-  // Make a form data structure allows us to call different methods on it
-  // Control the form and keep track the value
+  // Now, when you edit your room, room info will come to the edit page with you
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      githubRepo: '',
-      tags: '',
+      name: room.name,
+      description: room.description ?? '',
+      githubRepo: room.githubRepo ?? '',
+      tags: room.tags,
     },
   })
 
@@ -46,7 +47,10 @@ export default function CreateRoomForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     // Invoke a server action to store the data in our database
-    await createRoomAction(values)
+    await editRoomAction({
+      id: params.roomId as string,
+      ...values,
+    })
     router.push('/browse')
   }
 

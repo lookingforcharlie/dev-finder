@@ -1,7 +1,7 @@
 import { eq, like } from 'drizzle-orm'
 import { unstable_noStore } from 'next/cache'
 import { db } from '../db'
-import { room } from '../db/schema'
+import { Room, room } from '../db/schema'
 import { getSession } from '../lib/auth'
 
 // make '/' a dynamic page instead of static
@@ -39,3 +39,14 @@ export async function deleteRoom(roomId: string) {
 // data access layer has the knowledge of Next.js is a bad practice
 // so it would be a better practice to abstract unstable_noStore() away from these room functions
 // add unstable_noStore() too all the components that called the room functions here
+
+export async function createRoom(
+  roomData: Omit<Room, 'userId' | 'id'>,
+  userId: string
+) {
+  await db.insert(room).values({ ...roomData, userId })
+}
+
+export async function editRoom(roomData: Room) {
+  await db.update(room).set(roomData).where(eq(room.id, roomData.id))
+}

@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Github, TrashIcon } from 'lucide-react'
+import { Github, PencilIcon, TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 import TagsList from '../../components/Tag-list'
 import { Button } from '../../components/ui/button'
@@ -33,7 +33,12 @@ export default function UserRoomCard({ room }: { room: Room }) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className='relative'>
+        <Button className='absolute top-2 right-2' size='icon'>
+          <Link href={`/edit-room/${room.id}`}>
+            <PencilIcon />
+          </Link>
+        </Button>
         <CardTitle>{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>

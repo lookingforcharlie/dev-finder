@@ -52,8 +52,10 @@ export default function SearchBar() {
     if (values.search) {
       // So user can see the search result url on the page, can share with other dev
       // let use this to redo the query
+      console.log('going to searching url')
       router.push(`/?search=${values.search}`)
     } else {
+      console.log('going to root page')
       router.push('/')
     }
   }
