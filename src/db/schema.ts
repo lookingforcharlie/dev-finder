@@ -11,10 +11,10 @@ import {
 } from 'drizzle-orm/pg-core'
 
 // make a table called testing
-export const testing = pgTable('testing', {
-  id: text('id').notNull().primaryKey(),
-  name: text('name'),
-})
+// export const testing = pgTable('testing', {
+//   id: text('id').notNull().primaryKey(),
+//   name: text('name'),
+// })
 
 export const users = pgTable('user', {
   id: text('id').notNull().primaryKey(),
@@ -24,6 +24,7 @@ export const users = pgTable('user', {
   image: text('image'),
 })
 
+// { onDelete: 'cascade' }: if you delete a user, it will delete all related info automatically
 export const accounts = pgTable(
   'account',
   {
