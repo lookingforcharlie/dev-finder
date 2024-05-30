@@ -16,8 +16,10 @@ export async function createRoomAction(roomData: Omit<Room, 'userId' | 'id'>) {
     throw new Error('You must be logged in to create the room.')
   }
   // room is the table created in postgres
-  await createRoom(roomData, session?.user.id)
+  const room = await createRoom(roomData, session.user.id)
 
   // Tell next.js clear the cache next time someone hit this page, and get a fresh copy of everything
   revalidatePath('/')
+
+  return room
 }

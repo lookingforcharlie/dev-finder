@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { toast } from '../../../components/ui/use-toast'
 import { Room } from '../../../db/schema'
 import { editRoomAction } from './action'
 
@@ -51,7 +52,13 @@ export default function EditRoomForm({ room }: { room: Room }) {
       id: params.roomId as string,
       ...values,
     })
-    router.push('/browse')
+    toast({
+      title: 'Room Updated',
+      description: 'Your room was successfully updated.',
+      // TODO: Create a join the room button, right now when created, automatically join in
+      // action: <ToastAction altText='Goto schedule to undo'>Undo</ToastAction>,
+    })
+    // router.push('/browse')
   }
 
   return (

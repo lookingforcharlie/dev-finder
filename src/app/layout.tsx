@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
@@ -24,8 +25,9 @@ export default function RootLayout({
         <Providers>
           {/* implement loading effect in the navbar */}
           <NextTopLoader height={3} showSpinner={false} />
+          <Toaster />
           <Header />
-          {children}
+          <div className='container mx-auto'>{children}</div>
         </Providers>
       </body>
     </html>

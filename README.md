@@ -25,6 +25,10 @@
 - When log out, user tries to access /your-rooms, page breaks
 - Now it's time for middleware kicks in to catch the broken page
 
+## Landing Page
+
+Tailwind UI [https://tailwindui.com/components/marketing/sections/heroes#component-b9bcab4538776a17fff93d18f82a8272]
+
 ## Update
 
 [] Edit button for user's room

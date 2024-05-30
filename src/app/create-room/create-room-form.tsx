@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation'
 import react from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useToast } from '../../components/ui/use-toast'
 import { createRoomAction } from './action'
 
 // Define a form schema
@@ -28,6 +29,7 @@ const formSchema = z.object({
 })
 
 export default function CreateRoomForm() {
+  const { toast } = useToast()
   const router = useRouter()
   // 1. Define your form.
   // Make a form data structure allows us to call different methods on it
@@ -46,8 +48,15 @@ export default function CreateRoomForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // ✅ This will be type-safe and validated.
     // Invoke a server action to store the data in our database
-    await createRoomAction(values)
-    router.push('/browse')
+    const room = await createRoomAction(values)
+    toast({
+      title: 'Room Created',
+      description: 'Your room was successfully created.',
+      // TODO: Create a join the room button, right now when created, automatically join in
+      // action: <ToastAction altText='Goto schedule to undo'>Undo</ToastAction>,
+    })
+    // router.push('/browse')
+    router.push(`/rooms/${room.id}`)
   }
 
   return (
