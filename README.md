@@ -38,3 +38,4 @@ unDraw [https://undraw.co/illustrations]
 - [ ] Edit button for user's room
 - [ ] After you submit you edit room, the room will go the last in the browser page, I want it to stay in the same place
 - [ ] stream provides a chat SDK to add some live chat function. getstream.io/chat/
+- [ ] Search function is a little buggy
